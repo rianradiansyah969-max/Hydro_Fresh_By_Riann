@@ -1,0 +1,14 @@
+{
+  "name": "hydrofresh-web",
+  "version": "1.0.0",
+  "description": "Website Budidaya & Penjualan Sayuran Hidroponik HydroFresh - Rian Radiansyah XII RPL 3",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.19.2"
+  }
+}

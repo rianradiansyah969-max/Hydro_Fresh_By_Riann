@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= proposalData.businessName %> — Budidaya &amp; Penjualan Sayuran Hidroponik</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      },
+    },
+  }
+</script>
+
+<style>
+  /* GLASSMORPHISM ULTRA HD */
+  .glass-card-hd {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card-hd:hover {
+    border-color: rgba(16, 185, 129, 0.6);
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-nav-hd {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* BINGKAI FOTO LOGO JPEG CLEAN & HYBRID BLEND */
+  .logo-box-hd {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3), inset 0 0 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .logo-box-hd img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  /* BINGKAI FOTO SAYUR ULTRA HD */
+  .img-frame-hd {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.98) 0%, rgba(240, 253, 244, 0.92) 100%);
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .img-frame-hd img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    filter: contrast(110%) brightness(102%);
+    transition: transform 0.4s ease;
+  }
+
+  .group:hover .img-frame-hd img {
+    transform: scale(1.1) translateY(-4px);
+  }
+
+  /* ANIMASI PULSE & TYPING */
+  .live-pulse { animation: pulseGlow 2s infinite ease-in-out; }
+  @keyframes pulseGlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } }
+
+  .typing-cursor {
+    display: inline-block; width: 3px; background-color: #10b981;
+    animation: blink 0.75s infinite; margin-left: 2px;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ANIMASI CENTANG PEMBAYARAN SUKSES */
+  .success-checkmark {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  .success-checkmark .check-icon {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 4px solid #10b981;
+  }
+  .success-checkmark .check-icon .icon-line {
+    height: 5px;
+    background-color: #10b981;
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+  }
+  .success-checkmark .check-icon .icon-line.line-tip {
+    top: 46px;
+    left: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+    animation: icon-line-tip 0.75s;
+  }
+  .success-checkmark .check-icon .icon-line.line-long {
+    top: 38px;
+    right: 8px;
+    width: 47px;
+    transform: rotate(-45deg);
+    animation: icon-line-long 0.75s;
+  }
+  .success-checkmark .check-icon .icon-circle {
+    top: -4px;
+    left: -4px;
+    z-index: 10;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    box-sizing: content-box;
+    border: 4px solid rgba(16, 185, 129, 0.2);
+  }
+
+  @keyframes icon-line-tip {
+    0% { width: 0; left: 1px; top: 19px; }
+    54% { width: 0; left: 1px; top: 19px; }
+    70% { width: 50px; left: -8px; top: 37px; }
+    84% { width: 17px; left: 21px; top: 48px; }
+    100% { width: 25px; left: 14px; top: 46px; }
+  }
+  @keyframes icon-line-long {
+    0% { width: 0; right: 46px; top: 54px; }
+    65% { width: 0; right: 46px; top: 54px; }
+    84% { width: 55px; right: 0px; top: 35px; }
+    100% { width: 47px; right: 8px; top: 38px; }
+  }
+</style>
+</head>
+
+<body class="font-body text-slate-100 transition-colors duration-500 overflow-x-hidden relative min-h-screen bg-slate-950">
+
+  <!-- BACKGROUND UTAMA HD -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <img src="/img/bg1.png" onerror="this.src='/img/bg.jpg'" alt="Background Kebun HydroFresh HD" class="w-full h-full object-cover object-center scale-105 transition-transform duration-1000" />
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/25 to-slate-950/80"></div>
+  </div>
+
+  <!-- NAVBAR GLASSMORPHISM HD CLEAN LOGO -->
+  <header class="sticky top-0 z-50 glass-nav-hd transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between relative z-10">
+      
+      <!-- LOGO DAN BRAND (KIRI) -->
+      <a href="/" class="flex items-center gap-3 group">
+        <!-- BINGKAI LOGO JPEG HD DENGAN EFEK TERANG -->
+        <div class="w-11 h-11 logo-box-hd p-1 border border-emerald-400/50 group-hover:scale-105 transition duration-300">
+          <img src="/img/pdf/logo.jpeg" onerror="this.src='/img/logo.jpeg'" alt="Logo HydroFresh" />
+        </div>
+        <div>
+          <p class="font-display font-bold text-xl leading-none text-white tracking-wide">Hydro<span class="text-emerald-400">Fresh</span></p>
+          <p class="text-[10px] text-emerald-300 font-mono mt-0.5"><%= proposalData.author %> &middot; <%= proposalData.classInfo %></p>
+        </div>
+      </a>
+
+      <!-- MENU NAVIGASI (TENGAH) -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-200">
+        <a href="#fitur" class="hover:text-emerald-400 transition">Keunggulan</a>
+        <a href="#katalog" class="hover:text-emerald-400 transition">Katalog Sayur</a>
+        <a href="#proposal" class="hover:text-emerald-400 transition">Rincian Anggaran</a>
+        <a href="/proposal" class="text-emerald-300 hover:text-emerald-400 font-bold transition flex items-center gap-1.5 bg-emerald-500/20 px-3.5 py-1.5 rounded-full border border-emerald-500/30 text-xs">
+          📝 Proposal Docx
+        </a>
+      </nav>
+
+      <!-- BAGIAN KANAN ATAS (KERANJANG, TOMBOL MASUK, & LOGO CLEAN) -->
+      <div class="flex items-center gap-3">
+        <!-- TOMBOL KERANJANG BELANJA -->
+        <button onclick="toggleCartModal()" class="relative glass-card-hd hover:bg-emerald-500/20 text-emerald-300 font-bold px-4 py-2.5 rounded-full transition flex items-center gap-2 text-xs border border-emerald-500/40">
+          🛒 Keranjang
+          <span id="cartBadge" class="bg-emerald-400 text-slate-950 px-2 py-0.5 rounded-full text-[10px] font-extrabold shadow-md">0</span>
+        </button>
+
+        <a href="/home" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 text-xs font-bold px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-1.5">
+          <span>Masuk Toko &rarr;</span>
+        </a>
+
+        <!-- GAMBAR LOGO KANAN ATAS JPEG CLEAN -->
+        <div class="w-10 h-10 rounded-full logo-box-hd p-1 border border-emerald-400/50 shadow-md">
+          <img src="/img/pdf/logo.jpeg" onerror="this.src='/img/logo.jpeg'" alt="HydroFresh Logo" />
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="top" class="relative py-24 lg:py-32 overflow-hidden z-10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+      <div class="max-w-3xl space-y-6">
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-semibold backdrop-blur-md shadow-lg">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 live-pulse"></span>
+          Budidaya Sistem NFT (Nutrient Film Technique)
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
+          Sayuran Segar <br/>
+          <span id="hero-typing-text" class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent"></span><span class="typing-cursor">&nbsp;</span>
+        </h1>
+
+        <p class="text-slate-100 text-base sm:text-lg leading-relaxed max-w-2xl font-medium drop-shadow-sm">
+          <b class="text-white">HydroFresh</b> memproduksi Selada, Pakcoy, Kangkung, dan Sawi segar tanpa pestisida kimia — dipanen higienis langsung dari instalasi pipa hidroponik.
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a href="#katalog" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold px-8 py-4 rounded-full shadow-2xl shadow-emerald-500/40 transition transform hover:-translate-y-0.5 text-sm">
+            Lihat Produk &amp; Beli
+          </a>
+          <a href="/proposal" class="glass-card-hd text-white font-semibold px-8 py-4 rounded-full transition hover:border-emerald-400 text-sm flex items-center gap-2">
+            📝 Unduh Proposal Docx
+          </a>
+        </div>
+
+        <div class="pt-8 grid grid-cols-3 gap-6 border-t border-white/20 max-w-xl">
+          <div>
+            <p class="text-[10px] text-slate-300 font-mono uppercase font-bold tracking-wider">Modal Awal</p>
+            <p class="font-display font-bold text-xl sm:text-2xl text-emerald-400 mt-1 drop-shadow">Rp <%= (proposalData.modalAwal/1000000).toFixed(1) %> Jt</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-slate-300 font-mono uppercase font-bold tracking-wider">Laba Bersih / Bln</p>
+            <p class="font-display font-bold text-xl sm:text-2xl text-emerald-400 mt-1 drop-shadow">Rp <%= (proposalData.labaBersihBulan/1000000).toFixed(1) %> Jt</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-slate-300 font-mono uppercase font-bold tracking-wider">Balik Modal</p>
+            <p class="font-display font-bold text-xl sm:text-2xl text-teal-300 mt-1 drop-shadow">± 42 Hari</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEUNGGULAN SECTION -->
+  <section id="fitur" class="py-16 z-10 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-xl mb-10">
+        <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Kenapa Pilih HydroFresh?</span>
+        <h2 class="font-display text-3xl font-bold text-white mt-1">Keunggulan Sayuran Hidroponik</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-card-hd p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-2xl mb-4 border border-emerald-500/30">🌱</div>
+          <h3 class="font-bold text-base text-white">100% Bebas Pestisida</h3>
+          <p class="text-xs text-slate-300 mt-2 leading-relaxed">Ditanam di lingkungan terkontrol dengan air bernutrisi AB Mix, aman dikonsumsi langsung seluruh keluarga.</p>
+        </div>
+
+        <div class="glass-card-hd p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-2xl mb-4 border border-teal-500/30">💧</div>
+          <h3 class="font-bold text-base text-white">Sistem NFT Presisi</h3>
+          <p class="text-xs text-slate-300 mt-2 leading-relaxed">Pipa PVC 3" dengan sirkulasi pompa air kontinyu memastikan daun sayur lebih renyah dan segar tahan lama.</p>
+        </div>
+
+        <div class="glass-card-hd p-6 rounded-3xl">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-2xl mb-4 border border-cyan-500/30">🚀</div>
+          <h3 class="font-bold text-base text-white">Panen Harian &amp; Siap Antar</h3>
+          <p class="text-xs text-slate-300 mt-2 leading-relaxed">Sayuran dipetik hanya saat ada pesanan masuk, menjamin kesegaran maksimal dari kebun ke dapur Anda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATALOG SAYURAN HD -->
+  <section id="katalog" class="py-20 z-10 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Pilihan Hasil Panen</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Katalog Sayuran Fresh</h2>
+        </div>
+        <p class="text-xs text-slate-200 max-w-md bg-slate-900/50 p-3 rounded-2xl border border-white/10 backdrop-blur-sm">
+          Semua sayuran dijual dengan harga resmi <b class="text-emerald-400">Rp 10.000 / ikat</b> sesuai proposal bisnis HydroFresh.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- KATALOG 1: SELADA -->
+        <div class="glass-card-hd rounded-3xl p-5 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="img-frame-hd h-48 mb-4">
+              <img src="/img/sayur.png" onerror="this.src='/img/bg.jpg'" alt="Selada Hidroponik" />
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full font-bold">Terfavorit</span>
+              <span class="text-[11px] text-slate-300 font-mono font-semibold">NFT System</span>
+            </div>
+
+            <h3 class="font-bold text-lg text-white mt-2">Selada Hidroponik</h3>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">Selada renyah hasil sistem NFT 3 tingkat. Bebas pestisida kimia.</p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/15 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono font-bold text-base text-emerald-400">Rp 10.000 <span class="text-xs font-normal text-slate-400">/ ikat</span></span>
+              <button onclick="showDetailModal('Selada Hidroponik', 'Rp 10.000', 'Selada hidroponik dengan sistem NFT. Daun renyah, manis, cocok untuk salad dan konsumsi segar harian.', 'Kaya Vitamin A & K')" class="text-[11px] font-bold text-teal-300 hover:text-teal-200 hover:underline">Detail Info</button>
+            </div>
+            
+            <button onclick="addToCart('Selada Hidroponik', 10000, '/img/sayur.png')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-1.5">
+              <span>+ Tambah Keranjang</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KATALOG 2: PAKCOY -->
+        <div class="glass-card-hd rounded-3xl p-5 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="img-frame-hd h-48 mb-4">
+              <img src="/img/sayur1.png" onerror="this.src='/img/bg.jpg'" alt="Pakcoy Hidroponik" />
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full font-bold">Best Seller</span>
+              <span class="text-[11px] text-slate-300 font-mono font-semibold">NFT System</span>
+            </div>
+
+            <h3 class="font-bold text-lg text-white mt-2">Pakcoy Hidroponik</h3>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">Pakcoy manis dan tebal, kaya nutrisi cocok untuk tumisan keluarga.</p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/15 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono font-bold text-base text-emerald-400">Rp 10.000 <span class="text-xs font-normal text-slate-400">/ ikat</span></span>
+              <button onclick="showDetailModal('Pakcoy Hidroponik', 'Rp 10.000', 'Pakcoy batang tebal manis. Sangat higienis dipanen segar langsung saat ada pemesanan.', 'Kaya Zat Besi & C')" class="text-[11px] font-bold text-teal-300 hover:text-teal-200 hover:underline">Detail Info</button>
+            </div>
+
+            <button onclick="addToCart('Pakcoy Hidroponik', 10000, '/img/sayur1.png')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-1.5">
+              <span>+ Tambah Keranjang</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KATALOG 3: KANGKUNG -->
+        <div class="glass-card-hd rounded-3xl p-5 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="img-frame-hd h-48 mb-4">
+              <img src="/img/sayur2.png" onerror="this.src='/img/bg.jpg'" alt="Kangkung Hidroponik" />
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full font-bold">Panen Baru</span>
+              <span class="text-[11px] text-slate-300 font-mono font-semibold">NFT System</span>
+            </div>
+
+            <h3 class="font-bold text-lg text-white mt-2">Kangkung Hidroponik</h3>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">Kangkung hidroponik batang renyah dipanen langsung dari instalasi.</p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/15 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono font-bold text-base text-emerald-400">Rp 10.000 <span class="text-xs font-normal text-slate-400">/ ikat</span></span>
+              <button onclick="showDetailModal('Kangkung Hidroponik', 'Rp 10.000', 'Kangkung batang hijau renyah dan cepat matang saat dimasak. Bebas cacing air karena metode hidroponik bersih.', 'Bebas Hama')" class="text-[11px] font-bold text-teal-300 hover:text-teal-200 hover:underline">Detail Info</button>
+            </div>
+
+            <button onclick="addToCart('Kangkung Hidroponik', 10000, '/img/sayur2.png')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-1.5">
+              <span>+ Tambah Keranjang</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KATALOG 4: SAWI -->
+        <div class="glass-card-hd rounded-3xl p-5 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="img-frame-hd h-48 mb-4">
+              <img src="/img/sayur3.png" onerror="this.src='/img/bg.jpg'" alt="Sawi Hidroponik" />
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full font-bold">Sehat</span>
+              <span class="text-[11px] text-slate-300 font-mono font-semibold">NFT System</span>
+            </div>
+
+            <h3 class="font-bold text-lg text-white mt-2">Sawi Hidroponik</h3>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">Sawi hidroponik higienis dengan tekstur daun lebar tanpa racun hama.</p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/15 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono font-bold text-base text-emerald-400">Rp 10.000 <span class="text-xs font-normal text-slate-400">/ ikat</span></span>
+              <button onclick="showDetailModal('Sawi Hidroponik', 'Rp 10.000', 'Sawi daun lebar dan hijau pekat. Cocok untuk hidangan mie, sup, atau tumis sehat.', 'Serat Tinggi')" class="text-[11px] font-bold text-teal-300 hover:text-teal-200 hover:underline">Detail Info</button>
+            </div>
+
+            <button onclick="addToCart('Sawi Hidroponik', 10000, '/img/sayur3.png')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-1.5">
+              <span>+ Tambah Keranjang</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD RINCIAN ANGGARAN PROPOSAL -->
+  <section id="proposal" class="py-20 z-10 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-mono font-bold text-teal-400 uppercase tracking-widest">Rincian Anggaran Usaha</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Data Proposal HydroFresh</h2>
+        </div>
+        <a href="/proposal" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-5 py-2.5 rounded-2xl transition flex items-center gap-2">
+          <span>📝 Unduh File Proposal (.docx)</span>
+        </a>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- MODAL AWAL -->
+        <div class="glass-card-hd rounded-3xl p-6">
+          <div class="flex justify-between items-center pb-4 mb-4 border-b border-white/15">
+            <h3 class="font-bold text-sm text-white">Rincian Modal Awal (Alat &amp; Bahan)</h3>
+            <span class="font-mono text-xs font-bold text-emerald-400">Rp 3.500.000</span>
+          </div>
+          <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+            <% proposalData.rincianModal.forEach(r => { %>
+              <div class="flex justify-between text-xs font-mono py-1.5 border-b border-white/10">
+                <span class="text-slate-300"><%= r.item %></span>
+                <span class="text-white font-bold">Rp <%= r.subtotal.toLocaleString('id-ID') %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- OPERASIONAL BULANAN -->
+        <div class="glass-card-hd rounded-3xl p-6">
+          <div class="flex justify-between items-center pb-4 mb-4 border-b border-white/15">
+            <h3 class="font-bold text-sm text-white">Biaya Operasional / Bulan</h3>
+            <span class="font-mono text-xs font-bold text-amber-400">Rp 3.500.000</span>
+          </div>
+          <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+            <% proposalData.rincianOperasional.forEach(o => { %>
+              <div class="flex justify-between text-xs font-mono py-1.5 border-b border-white/10">
+                <span class="text-slate-300"><%= o.item %></span>
+                <span class="text-white font-bold">Rp <%= o.cost.toLocaleString('id-ID') %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL CART & CHECKOUT FORM -->
+  <div id="cartModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex justify-end">
+    <div class="w-full max-w-lg bg-slate-900 border-l border-white/15 h-full p-6 flex flex-col justify-between overflow-y-auto">
+      
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-white/15">
+          <div class="flex items-center gap-3">
+            <button id="tabCartBtn" onclick="switchCartTab('cart')" class="text-sm font-bold text-emerald-400 pb-1 border-b-2 border-emerald-400">🛒 Keranjang</button>
+            <button id="tabHistoryBtn" onclick="switchCartTab('history')" class="text-sm font-bold text-slate-400 pb-1 hover:text-white transition">📜 Riwayat Transaksi</button>
+          </div>
+          <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+        </div>
+
+        <div id="cartTabView" class="space-y-6 py-4">
+          <div id="cartItemsContainer" class="space-y-3">
+            <p class="text-xs text-slate-400 text-center py-6">Keranjang belanjaan kamu masih kosong.</p>
+          </div>
+
+          <div id="checkoutFormSection" class="hidden space-y-4 pt-4 border-t border-white/15">
+            <h4 class="font-bold text-xs font-mono uppercase text-emerald-400">Isi Data Pengiriman &amp; Pembayaran</h4>
+
+            <div class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Nama Lengkap Pemesan:</label>
+                <input type="text" id="custName" placeholder="Contoh: Rian Radiansyah" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500" />
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Nomor WhatsApp Active:</label>
+                <input type="tel" id="custPhone" placeholder="Contoh: 08123456789" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500" />
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Alamat Lengkap Pengiriman:</label>
+                <textarea id="custAddress" rows="2" placeholder="Nama Jalan, No. Rumah, RT/RW, Kelurahan..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500"></textarea>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Pilih Metode Pembayaran:</label>
+                <select id="payMethod" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-emerald-500">
+                  <option value="Online (QRIS / Transfer Bank)">Online (QRIS / Transfer Bank)</option>
+                  <option value="Offline (COD - Cash On Delivery)">Offline (COD - Bayar Tunai Saat Diterima)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="historyTabView" class="hidden py-4 space-y-3">
+          <div id="historyListContainer" class="space-y-3">
+            <p class="text-xs text-slate-400 text-center py-6">Belum ada riwayat transaksi terhitung.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="cartFooterSection" class="pt-4 border-t border-white/15 space-y-3">
+        <div class="flex justify-between items-center text-sm font-bold">
+          <span class="text-slate-300">Total Belanja:</span>
+          <span id="cartTotalPrice" class="text-emerald-400 text-lg font-mono">Rp 0</span>
+        </div>
+
+        <!-- TOMBOL PEMBAYARAN LANGSUNG -->
+        <button onclick="processDirectPayment()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs py-3.5 rounded-2xl transition shadow-lg shadow-emerald-500/30">
+          Bayar / Selesaikan Pesanan Langsung &rarr;
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL ANIMASI PEMBAYARAN SELESAI -->
+  <div id="paymentSuccessModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card-hd max-w-md w-full p-8 rounded-3xl text-center space-y-5 relative">
+      
+      <!-- ANIMASI CENTANG SUKSES -->
+      <div class="success-checkmark py-2">
+        <div class="check-icon">
+          <span class="icon-line line-tip"></span>
+          <span class="icon-line line-long"></span>
+          <div class="icon-circle"></div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-display font-bold text-2xl text-white">Pembayaran Berhasil!</h3>
+        <p class="text-xs text-emerald-400 font-mono mt-1">Pesanan Anda Telah Kami Terima &amp; Diproses</p>
+      </div>
+
+      <!-- RINCIAN NOTA PESANAN -->
+      <div class="bg-slate-950/70 p-4 rounded-2xl border border-white/10 text-left text-xs space-y-2 font-mono">
+        <div class="flex justify-between border-b border-white/10 pb-1.5">
+          <span class="text-slate-400">No. Transaksi:</span>
+          <span id="succTrxId" class="text-emerald-400 font-bold"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-1.5">
+          <span class="text-slate-400">Nama Pembeli:</span>
+          <span id="succCustName" class="text-white"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-1.5">
+          <span class="text-slate-400">Metode Bayar:</span>
+          <span id="succPayMethod" class="text-teal-300"></span>
+        </div>
+        <div class="flex justify-between pt-1">
+          <span class="text-slate-400">Total Dibayar:</span>
+          <span id="succTotalPay" class="text-emerald-400 font-bold text-sm"></span>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-300 leading-relaxed">
+        Sayuran hidroponik segar Anda sedang dipetik langsung dari instalasi HydroFresh dan disiapkan untuk pengiriman.
+      </p>
+
+      <button onclick="closeSuccessModal()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs py-3.5 rounded-2xl shadow-lg transition">
+        Lihat Riwayat Pesanan Saya &rarr;
+      </button>
+
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL SAYURAN -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card-hd max-w-md w-full p-6 rounded-3xl space-y-4 relative">
+      <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+      <span id="detailBadge" class="bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold px-3 py-1 rounded-full border border-emerald-500/30">Detail Produk</span>
+      <h3 id="detailTitle" class="font-bold text-xl text-white"></h3>
+      <p id="detailPrice" class="font-mono font-bold text-emerald-400 text-lg"></p>
+      <p id="detailDesc" class="text-xs text-slate-300 leading-relaxed"></p>
+      <button onclick="closeDetailModal()" class="w-full bg-emerald-500 text-slate-950 font-bold text-xs py-2.5 rounded-xl">Tutup Penjelasan</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/15 text-center text-xs text-slate-300 z-10 relative font-medium">
+    <p>&copy; <%= new Date().getFullYear() %> HydroFresh. Seluruh hak cipta dilindungi.</p>
+    <p class="mt-1 font-mono text-emerald-400">Disusun Oleh: <%= proposalData.author %> (<%= proposalData.classInfo %>)</p>
+  </footer>
+
+  <!-- SCRIPT & LOGIKA PEMBAYARAN LANGSUNG -->
+  <script>
+    let cart = [];
+
+    function addToCart(name, price, img) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, img, qty: 1 });
+      }
+      updateCartUI();
+      toggleCartModal(true);
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(item => item.name !== name);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartBadge').textContent = totalItems;
+
+      const container = document.getElementById('cartItemsContainer');
+      const totalPriceEl = document.getElementById('cartTotalPrice');
+      const checkoutForm = document.getElementById('checkoutFormSection');
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Keranjang belanjaan kamu masih kosong.</p>`;
+        totalPriceEl.textContent = 'Rp 0';
+        checkoutForm.classList.add('hidden');
+        return;
+      }
+
+      checkoutForm.classList.remove('hidden');
+      let grandTotal = 0;
+      container.innerHTML = '';
+
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        grandTotal += itemTotal;
+
+        const el = document.createElement('div');
+        el.className = "flex items-center justify-between bg-slate-950/60 p-3 rounded-2xl border border-white/10 text-xs";
+        el.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-white rounded-xl p-1 flex items-center justify-center">
+              <img src="${item.img}" class="max-h-full max-w-full object-contain mix-blend-multiply" />
+            </div>
+            <div>
+              <p class="font-bold text-white">${item.name}</p>
+              <p class="text-emerald-400 font-mono">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</p>
+            </div>
+          </div>
+          <button onclick="removeFromCart('${item.name}')" class="text-rose-400 font-bold hover:underline text-[10px]">Hapus</button>
+        `;
+        container.appendChild(el);
+      });
+
+      totalPriceEl.textContent = 'Rp ' + grandTotal.toLocaleString('id-ID');
+    }
+
+    function toggleCartModal(forceOpen = false) {
+      const modal = document.getElementById('cartModal');
+      if (forceOpen) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.toggle('hidden');
+      }
+      renderHistoryUI();
+    }
+
+    function switchCartTab(tab) {
+      const cartView = document.getElementById('cartTabView');
+      const historyView = document.getElementById('historyTabView');
+      const footerSec = document.getElementById('cartFooterSection');
+
+      const cartBtn = document.getElementById('tabCartBtn');
+      const historyBtn = document.getElementById('tabHistoryBtn');
+
+      if (tab === 'cart') {
+        cartView.classList.remove('hidden');
+        historyView.classList.add('hidden');
+        footerSec.classList.remove('hidden');
+
+        cartBtn.className = "text-sm font-bold text-emerald-400 pb-1 border-b-2 border-emerald-400";
+        historyBtn.className = "text-sm font-bold text-slate-400 pb-1 hover:text-white transition";
+      } else {
+        cartView.classList.add('hidden');
+        historyView.classList.remove('hidden');
+        footerSec.classList.add('hidden');
+
+        historyBtn.className = "text-sm font-bold text-emerald-400 pb-1 border-b-2 border-emerald-400";
+        cartBtn.className = "text-sm font-bold text-slate-400 pb-1 hover:text-white transition";
+        renderHistoryUI();
+      }
+    }
+
+    function processDirectPayment() {
+      if (cart.length === 0) {
+        alert('Keranjang kamu masih kosong!');
+        return;
+      }
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const payMethod = document.getElementById('payMethod').value;
+
+      if (!name || !phone || !address) {
+        alert('Mohon lengkapi Nama, Nomor WhatsApp, dan Alamat Pengiriman terlebih dahulu!');
+        return;
+      }
+
+      let grandTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const trxId = 'HF-' + Math.floor(100000 + Math.random() * 900000);
+
+      const newTransaction = {
+        id: trxId,
+        date: new Date().toLocaleString('id-ID'),
+        name: name,
+        items: [...cart],
+        total: grandTotal,
+        payment: payMethod
+      };
+
+      // Simpan Ke LocalStorage
+      let history = JSON.parse(localStorage.getItem('history_hydrofresh') || '[]');
+      history.unshift(newTransaction);
+      localStorage.setItem('history_hydrofresh', JSON.stringify(history));
+
+      // Isi Data Ke Pop Up Animasi Nota
+      document.getElementById('succTrxId').textContent = trxId;
+      document.getElementById('succCustName').textContent = name;
+      document.getElementById('succPayMethod').textContent = payMethod;
+      document.getElementById('succTotalPay').textContent = 'Rp ' + grandTotal.toLocaleString('id-ID');
+
+      // Tampilkan Modal Animasi & Reset Keranjang
+      cart = [];
+      updateCartUI();
+      toggleCartModal(false);
+      document.getElementById('paymentSuccessModal').classList.remove('hidden');
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('paymentSuccessModal').classList.add('hidden');
+      toggleCartModal(true);
+      switchCartTab('history');
+    }
+
+    function renderHistoryUI() {
+      const container = document.getElementById('historyListContainer');
+      const history = JSON.parse(localStorage.getItem('history_hydrofresh') || '[]');
+
+      if (history.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Belum ada riwayat transaksi terhitung.</p>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      history.forEach(trx => {
+        const itemNames = trx.items.map(i => `${i.name} (${i.qty}x)`).join(', ');
+        const card = document.createElement('div');
+        card.className = "bg-slate-950/70 p-4 rounded-2xl border border-white/10 text-xs space-y-1.5";
+        card.innerHTML = `
+          <div class="flex justify-between items-center font-mono">
+            <span class="text-emerald-400 font-bold">${trx.id}</span>
+            <span class="text-[10px] text-slate-400">${trx.date}</span>
+          </div>
+          <p class="text-slate-200 font-medium">${trx.name} &middot; <span class="text-teal-300 text-[11px]">${trx.payment}</span></p>
+          <p class="text-slate-300 text-[11px]">${itemNames}</p>
+          <div class="pt-2 border-t border-white/10 flex justify-between items-center font-mono">
+            <span class="text-slate-400 text-[10px]">Total Transaksi</span>
+            <span class="font-bold text-emerald-400">Rp ${trx.total.toLocaleString('id-ID')}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function showDetailModal(title, price, desc, badge) {
+      document.getElementById('detailTitle').textContent = title;
+      document.getElementById('detailPrice').textContent = price;
+      document.getElementById('detailDesc').textContent = desc;
+      document.getElementById('detailBadge').textContent = badge;
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    // TYPING EFFECT HERO
+    const heroPhrases = ["100% Nutrisi AB Mix.", "Bebas Pestisida Kimia.", "Dipanen Langsung Kebun."];
+    let hPart = 0, hChar = 0, hDeleting = false;
+    const heroAnim = document.getElementById('hero-typing-text');
+    function typeHero() {
+      if (!heroAnim) return;
+      const current = heroPhrases[hPart];
+      heroAnim.textContent = hDeleting ? current.substring(0, hChar - 1) : current.substring(0, hChar + 1);
+      hChar += hDeleting ? -1 : 1;
+      let spd = hDeleting ? 40 : 90;
+      if (!hDeleting && hChar === current.length) { spd = 2000; hDeleting = true; }
+      else if (hDeleting && hChar === 0) { hDeleting = false; hPart = (hPart + 1) % heroPhrases.length; spd = 400; }
+      setTimeout(typeHero, spd);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      typeHero();
+      renderHistoryUI();
+    });
+  </script>
+
+</body>
+</html>

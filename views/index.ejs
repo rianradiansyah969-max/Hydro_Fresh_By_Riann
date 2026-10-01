@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= proposalData.businessName %> — Budidaya & Penjualan Sayuran Hidroponik</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      },
+    },
+  }
+</script>
+
+<style>
+  .live-pulse { animation: pulseGlow 2s infinite ease-in-out; }
+  @keyframes pulseGlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.15); } }
+</style>
+</head>
+
+<body class="font-body bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-white min-h-screen">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-emerald-900/30">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center font-display font-bold text-slate-950 text-xl shadow-lg shadow-emerald-500/20">
+          🌱
+        </div>
+        <div>
+          <p class="font-display font-bold text-lg leading-none text-white tracking-wide">Hydro<span class="text-emerald-400">Fresh</span></p>
+          <p class="text-[10px] text-emerald-400/80 font-mono mt-0.5"><%= proposalData.author %> &middot; <%= proposalData.classInfo %></p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#katalog" class="hover:text-emerald-400 transition">Katalog Sayuran</a>
+        <a href="#kalkulator" class="hover:text-emerald-400 transition">Kalkulator Pesanan</a>
+        <a href="#proposal" class="hover:text-emerald-400 transition">Detail Proposal Usaha</a>
+        <a href="#kontak" class="hover:text-emerald-400 transition">Kontak &amp; Lokasi</a>
+      </nav>
+
+      <a href="#katalog" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 text-slate-950 text-sm font-bold px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+        Pesan Sayur Now
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="top" class="relative py-20 lg:py-28 overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-32 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 live-pulse"></span>
+          Budidaya Sistem NFT (Nutrient Film Technique)
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight">
+          Sayuran Segar <br/>
+          <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">Bebas Pestisida Kimia</span>
+        </h1>
+
+        <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-lg">
+          <b class="text-white">HydroFresh</b> memproduksi Selada, Pakcoy, Kangkung, dan Sawi hidroponik higienis. Dipanen segar tiap hari langsung dari instalasi pipa NFT.
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a href="#katalog" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-7 py-3.5 rounded-full shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5">
+            Lihat Katalog Sayuran
+          </a>
+          <a href="#proposal" class="border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-medium px-6 py-3.5 rounded-full transition">
+            Data Analisis Proposal
+          </a>
+        </div>
+
+        <!-- STATISTIK RINGKASAN PROPOSAL -->
+        <div class="pt-8 grid grid-cols-3 gap-4 border-t border-slate-800">
+          <div>
+            <p class="text-[10px] text-slate-500 font-mono uppercase">Modal Awal Usaha</p>
+            <p class="font-display font-bold text-lg text-emerald-400">Rp <%= (proposalData.modalAwal/1000000).toFixed(1) %> Jt</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-slate-500 font-mono uppercase">Laba Bersih / Bln</p>
+            <p class="font-display font-bold text-lg text-emerald-400">Rp <%= (proposalData.labaBersihBulan/1000000).toFixed(1) %> Jt</p>
+          </div>
+          <div>
+            <p class="text-[10px] text-slate-500 font-mono uppercase">Target Balik Modal</p>
+            <p class="font-display font-bold text-lg text-teal-300">± 42 Hari</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KANAN: CARD SHOWCASE DARI INSTALASI -->
+      <div class="flex justify-center">
+        <div class="w-full max-w-md bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-2xl relative space-y-5">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div>
+              <p class="text-xs font-mono text-emerald-400 font-bold">SMART HYDROPONIC FARM</p>
+              <p class="text-[10px] text-slate-500">Kapasitas 300 Netpot NFT</p>
+            </div>
+            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-500/30">SIAP PANEN</span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">🥬</span>
+                <div>
+                  <h4 class="font-bold text-xs text-white">Selada &amp; Pakcoy NFT</h4>
+                  <p class="text-[11px] text-slate-400">Rp 10.000 / Ikat Siap Saji</p>
+                </div>
+              </div>
+              <span class="text-emerald-400 text-[10px] font-mono font-bold">Segar 100%</span>
+            </div>
+
+            <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">🌱</span>
+                <div>
+                  <h4 class="font-bold text-xs text-white">Kangkung &amp; Sawi</h4>
+                  <p class="text-[11px] text-slate-400">Rp 10.000 / Ikat Siap Saji</p>
+                </div>
+              </div>
+              <span class="text-emerald-400 text-[10px] font-mono font-bold">Segar 100%</span>
+            </div>
+          </div>
+
+          <div class="p-4 bg-emerald-950/30 border border-emerald-500/20 rounded-2xl text-xs text-slate-300 space-y-1">
+            <p class="font-bold text-emerald-400">Nutrisi Terukur AB Mix &amp; pH Air Presisi</p>
+            <p class="text-[11px] text-slate-400">Hasil panen dijual dalam bentuk ikatan siap konsumsi ke warung, rumah makan &amp; publik.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATALOG SAYURAN -->
+  <section id="katalog" class="py-20 bg-slate-900/50 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-xl mb-12">
+        <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Pilihan Hasil Panen</span>
+        <h2 class="font-display text-3xl font-bold text-white mt-2">Katalog Sayuran HydroFresh</h2>
+        <p class="text-slate-400 text-sm mt-2">Sayuran sehat segar dipanen harian dari kebun hidroponik kami.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% products.forEach(p => { %>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/50 transition duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="h-36 rounded-xl bg-slate-950 flex items-center justify-center text-5xl mb-4 group-hover:scale-105 transition">
+                <% if (p.name.includes('Selada')) { %>🥬<% } else if (p.name.includes('Pakcoy')) { %>🥗<% } else if (p.name.includes('Kangkung')) { %>🌱<% } else { %>🌿<% } %>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full"><%= p.badge %></span>
+                <span class="text-xs text-slate-400 font-mono font-bold">Rp <%= p.price.toLocaleString('id-ID') %></span>
+              </div>
+              <h3 class="font-bold text-base text-white mt-2"><%= p.name %></h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed"><%= p.desc %></p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800">
+              <a href="https://wa.me/<%= proposalData.contactWA %>?text=Halo%20HydroFresh,%20saya%20ingin%20memesan%20<%= encodeURIComponent(p.name) %>" target="_blank" class="w-full inline-block text-center bg-emerald-500/10 hover:bg-emerald-500 border border-emerald-500/30 text-emerald-400 hover:text-slate-950 text-xs font-bold py-2.5 rounded-xl transition">
+                Pesan via WhatsApp &rarr;
+              </a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- KALKULATOR PESANAN INTERAKTIF -->
+  <section id="kalkulator" class="py-20 border-b border-slate-800">
+    <div class="max-w-4xl mx-auto px-6 lg:px-10">
+      <div class="bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/40 border border-emerald-500/30 p-8 rounded-3xl shadow-2xl">
+        <div class="text-center max-w-lg mx-auto mb-8">
+          <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Fitur Interaktif</span>
+          <h2 class="font-display text-2xl font-bold text-white mt-1">Kalkulator Estimasi Pesanan Sayur</h2>
+          <p class="text-xs text-slate-400 mt-1">Hitung total belanjaan sayur hidroponik segar kamu secara langsung.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Pilih Jenis Sayuran:</label>
+              <select id="calcVeg" onchange="calculateOrder()" class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl p-3 focus:border-emerald-500 focus:outline-none">
+                <% products.forEach(p => { %>
+                  <option value="<%= p.price %>"><%= p.name %> — Rp <%= p.price.toLocaleString('id-ID') %>/ikat</option>
+                <% }) %>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Jumlah Ikat Sayuran:</label>
+              <input type="number" id="calcQty" value="5" min="1" oninput="calculateOrder()" class="w-full bg-slate-900 border border-slate-700 text-white text-xs rounded-xl p-3 focus:border-emerald-500 focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="p-6 bg-slate-950 rounded-2xl border border-slate-800 space-y-3 text-center">
+            <p class="text-xs text-slate-400 font-mono uppercase">Total Estimasi Belanja</p>
+            <p id="totalPrice" class="font-display font-bold text-3xl text-emerald-400">Rp 50.000</p>
+            <p class="text-[11px] text-slate-500">Gratis pengantaran untuk wilayah dekat kebun HydroFresh!</p>
+            
+            <button onclick="sendWAOrder()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 mt-2">
+              Kirim Pesanan Ke WA Sekarang
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD RINCIAN PROPOSAL HAKIKI -->
+  <section id="proposal" class="py-20 bg-slate-900/30">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs font-mono font-bold text-teal-400 uppercase tracking-widest">Rencana Anggaran Proposal Usaha</span>
+        <h2 class="font-display text-3xl font-bold text-white mt-2">Data Finansial HydroFresh</h2>
+        <p class="text-slate-400 text-sm mt-2">Penyusunan rencana anggaran modal awal Rp 3.500.000 dan estimasi laba harian/bulanan (Rian Radiansyah - XII RPL 3).</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- TABLE RINCIAN MODAL AWAL -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-800">
+            <h3 class="font-bold text-sm text-white">Rincian Modal Awal (Alat &amp; Bahan)</h3>
+            <span class="font-mono text-xs font-bold text-emerald-400">Total: Rp 3.500.000</span>
+          </div>
+
+          <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+            <% proposalData.rincianModal.forEach(r => { %>
+              <div class="flex justify-between text-xs font-mono py-1.5 border-b border-slate-800/50">
+                <span class="text-slate-300"><%= r.item %></span>
+                <span class="text-emerald-400 font-semibold">Rp <%= r.subtotal.toLocaleString('id-ID') %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- TABLE RINCIAN OPERASIONAL -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-800">
+            <h3 class="font-bold text-sm text-white">Rincian Biaya Operasional / Bulan</h3>
+            <span class="font-mono text-xs font-bold text-amber-400">Total: Rp 3.500.000</span>
+          </div>
+
+          <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+            <% proposalData.rincianOperasional.forEach(o => { %>
+              <div class="flex justify-between text-xs font-mono py-1.5 border-b border-slate-800/50">
+                <span class="text-slate-300"><%= o.item %></span>
+                <span class="text-amber-400 font-semibold">Rp <%= o.cost.toLocaleString('id-ID') %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY REKAP KEUNTUNGAN -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl grid md:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-[10px] text-slate-500 font-mono uppercase">Pendapatan Kotor / Bulan</p>
+          <p class="font-display font-bold text-xl text-white mt-1">Rp 6.000.000</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 font-mono uppercase">Biaya Operasional / Bulan</p>
+          <p class="font-display font-bold text-xl text-amber-400 mt-1">Rp 3.500.000</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 font-mono uppercase">Laba Bersih / Bulan</p>
+          <p class="font-display font-bold text-xl text-emerald-400 mt-1">Rp 2.500.000</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 font-mono uppercase">Laba Bersih / Tahun</p>
+          <p class="font-display font-bold text-xl text-teal-300 mt-1">Rp 29.400.000</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontak" class="py-12 border-t border-slate-800 text-center text-xs text-slate-500">
+    <p>&copy; <%= new Date().getFullYear() %> HydroFresh. Seluruh hak cipta dilindungi.</p>
+    <p class="mt-1 text-slate-400 font-mono">Disusun Oleh: <%= proposalData.author %> (<%= proposalData.classInfo %>)</p>
+  </footer>
+
+  <!-- SCRIPT KALKULATOR -->
+  <script>
+    function calculateOrder() {
+      const price = parseInt(document.getElementById('calcVeg').value);
+      const qty = parseInt(document.getElementById('calcQty').value) || 1;
+      const total = price * qty;
+      document.getElementById('totalPrice').textContent = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function sendWAOrder() {
+      const vegSelect = document.getElementById('calcVeg');
+      const vegName = vegSelect.options[vegSelect.selectedIndex].text.split('—')[0].trim();
+      const qty = document.getElementById('calcQty').value;
+      const total = document.getElementById('totalPrice').textContent;
+
+      const message = `Halo HydroFresh, saya mau pesan ${vegName} sejumlah ${qty} ikat (${total}). Mohon diproses!`;
+      window.open(`https://wa.me/<%= proposalData.contactWA %>?text=${encodeURIComponent(message)}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
